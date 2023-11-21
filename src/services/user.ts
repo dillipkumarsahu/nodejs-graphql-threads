@@ -22,6 +22,10 @@ class UserService {
 
     return hashedPassword;
   }
+
+  public static getUserById(id: string) {
+    return prismaClient.user.findUnique({ where: { id } });
+  }
   // create an user
   public static async createUser(payload: ICreateUserPayload) {
     const { firstName, lastName, email, password } = payload;
@@ -35,6 +39,7 @@ class UserService {
   private static getUserByEmail(email: string) {
     return prismaClient.user.findUnique({ where: { email } });
   }
+
   // get user token by validating email and password
   public static async getUserToken(payload: IGetUserTokenPayload) {
     const { email, password } = payload;
@@ -54,6 +59,9 @@ class UserService {
       process.env.JWT_SECRET!
     );
     return token;
+  }
+  public static decodeJWTToken(token: string) {
+    return JWT.verify(token, process.env.JWT_SECRET!);
   }
 }
 
