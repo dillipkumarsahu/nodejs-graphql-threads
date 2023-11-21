@@ -21,3 +21,28 @@ model User {
 
   @@map("users")
 }
+
+model Thread {
+  id     String @id @default(uuid())
+  userId String @map("user_id")
+  thread String
+
+  @@map("threads")
+}
+
+model ThreadLike {
+  id       String @id @default(uuid())
+  userId   String @map("user_id")
+  threadId String @map("thread_id")
+
+  @@map("thread_likes")
+}
+
+model ThreadReply {
+  id       String @id @default(uuid())
+  userId   String @map("user_id")
+  threadId String @map("thread_id")
+  reply    String
+
+  @@map("thread_replys")
+}
